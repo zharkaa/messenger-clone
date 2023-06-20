@@ -57,8 +57,8 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ currentUser }) => {
           {routes.map((item) => (
             <DesktopItem
               key={item.label}
-              href={item.href}
               label={item.label}
+              href={item.href}
               icon={item.icon}
               active={item.active}
               onClick={item.onClick}
