@@ -18,6 +18,8 @@ export async function POST(request: Request) {
         }
 
         if (isGroup) {
+
+            // create a new group conversation
             const newConversation = await prisma.conversation.create({
                 data: {
                     name,
@@ -41,6 +43,7 @@ export async function POST(request: Request) {
             return NextResponse.json(newConversation);
         }
 
+        // find existing conversation
         const existingConversations = await prisma.conversation.findMany({
             where: {
                 OR: [
@@ -58,12 +61,14 @@ export async function POST(request: Request) {
             },
         });
 
+        // take the first conversation
         const singleConversation = existingConversations[0];
 
         if (singleConversation) {
             return NextResponse.json(singleConversation);
         }
 
+        // create a 1 on 1 conversation
         const newConversation = await prisma.conversation.create({
             data: {
                 users: {
